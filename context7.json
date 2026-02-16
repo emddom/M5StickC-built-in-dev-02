@@ -1,0 +1,17 @@
+{
+  "name": "M5StickC-built-in-dev-02",
+  "description": "M5StickC embedded application for testing built-in hardware (IMU, etc.)",
+  "include": [
+    "src",
+    "include",
+    "lib",
+    "platformio.ini",
+    "GEMINI.md"
+  ],
+  "exclude": [
+    ".pio",
+    ".vscode",
+    ".git",
+    "test"
+  ]
+}

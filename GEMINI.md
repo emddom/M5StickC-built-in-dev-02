@@ -1,61 +1,41 @@
-# M5StickC SPL and Audio Streamer
+# M5StickC Built-in Hardware Dev (IMU)
 
 ## Project Overview
-This project is an embedded application for the M5StickC (ESP32-based development board) designed to measure Sound Pressure Level (SPL) and stream raw audio data over a serial connection.
+This project is a development sandbox for the M5StickC (ESP32-based development board) focused on utilizing its built-in hardware features, specifically the **6-Axis IMU (MPU6886 or SH200Q)**.
 
-The core logic resides in `src/main.cpp`, which implements:
--   **Microphone Reading:** Captures audio data using the M5StickC's built-in microphone via the `M5Unified` Mic API.
--   **SPL Calculation:** Calculates the Root Mean Square (RMS) of the audio signal and converts it to a decibel (dB) SPL value.
--   **Real-time Display:** Shows the calculated SPL value on the M5StickC's LCD screen using `M5GFX`.
--   **Data Streaming:** Sends raw audio samples to the serial port for external processing or visualization.
+The core logic resides in `src/main.cpp`. The goal is to:
+-   **Initialize IMU:** Detect and configure the internal accelerometer and gyroscope.
+-   **Read Sensor Data:** Capture motion data (acceleration, rotation).
+-   **Display Data:** Visualize sensor readings (Accel X/Y/Z, Gyro X/Y/Z) on the LCD using `M5GFX`.
 
 ## Hardware
 -   **Device:** M5StickC
--   **Microphone:** Internal MEMS microphone (SPM1423)
+-   **IMU:** MPU6886 or SH200Q (6-Axis)
 -   **Display:** 0.96" TFT LCD
+-   **Other:** Power Management (AXP192), RTC, IR Transmitter, Button, LED
 
 ## Project Structure
--   `src/main.cpp`: Main application logic (Standard C++ format).
+-   `src/main.cpp`: Main application logic.
 -   `platformio.ini`: PlatformIO configuration file.
+-   `context7.json`: Context7 MCP configuration.
 -   `CMakeLists.txt`: CMake build configuration.
 
 ## PlatformIO Configuration (`platformio.ini`)
 
 The project uses the following key configurations:
--   **platform:** `espressif32` (Target SoC family).
--   **board:** `m5stick-c` (Specific hardware profile).
--   **framework:** `arduino` (Provides the Arduino API layer).
+-   **platform:** `espressif32`
+-   **board:** `m5stick-c`
+-   **framework:** `arduino`
 -   **lib_deps:**
-    -   `M5Unified`: Unified API for all M5Stack devices (handles power, buttons, etc.).
-    -   `M5GFX`: Modern graphics library for the LCD.
--   **monitor_speed:** `115200` (Baud rate for serial communication).
-
-## Recent Changes & Refactoring (2026-02-16)
-
-The project has undergone significant modernization and fixes:
-
-### 1. Migration from .ino to C++
--   **Action:** Converted the Arduino sketch `mic_SPL_and_stream_RT_2025.ino` to a standard C++ source file `src/main.cpp`.
--   **Details:** Added `#include <Arduino.h>` and ensured proper function declarations.
-
-### 2. Library Migration (M5Unified)
--   **Action:** Replaced the deprecated `M5StickC` library with the modern `M5Unified` and `M5GFX` libraries.
--   **Details:**
-    -   Updated `platformio.ini` dependencies to `m5stack/M5Unified` and `m5stack/M5GFX`.
-    -   Refactored `setup()` to use `M5.config()` and `M5.begin(cfg)`.
-    -   Replaced `M5.Lcd` with `M5.Display`.
-    -   Replaced manual I2S initialization and reading with `M5.Mic` API (`M5.Mic.begin()`, `M5.Mic.record()`).
-    -   Explicitly configured the internal microphone usage (`cfg.internal_mic = true`).
-
-### 3. Build Configuration Fixes
--   **Framework:** Corrected `platformio.ini` to use `framework = arduino` (previously incorrectly set to `espidf`).
--   **Conflict Resolution:** Removed the original `src/main.cpp` which conflicted with the main logic file.
+    -   `M5Unified`: Unified API for all M5Stack devices.
+    -   `M5GFX`: Modern graphics library.
+-   **monitor_speed:** `115200`
 
 ## Development
 
 ### IDE Setup
 -   **VS Code Extension:** This project is configured to use the [PlatformIO IDE](https://platformio.org/platformio-ide) extension.
--   **Important:** Do not use the standalone Microsoft Arduino extension (`vsciot-vscode.vscode-arduino`), as it is incompatible with the PlatformIO build system used here.
+-   **Context7 MCP:** This project includes a `context7.json` configuration for better integration with Context7-enabled tools.
 
 ### Prerequisites
 -   PlatformIO (VS Code extension or CLI)
