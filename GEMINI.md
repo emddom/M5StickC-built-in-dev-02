@@ -19,6 +19,17 @@ The core logic resides in `src/main.cpp`, which implements:
 -   `platformio.ini`: PlatformIO configuration file.
 -   `CMakeLists.txt`: CMake build configuration.
 
+## PlatformIO Configuration (`platformio.ini`)
+
+The project uses the following key configurations:
+-   **platform:** `espressif32` (Target SoC family).
+-   **board:** `m5stick-c` (Specific hardware profile).
+-   **framework:** `arduino` (Provides the Arduino API layer).
+-   **lib_deps:**
+    -   `M5Unified`: Unified API for all M5Stack devices (handles power, buttons, etc.).
+    -   `M5GFX`: Modern graphics library for the LCD.
+-   **monitor_speed:** `115200` (Baud rate for serial communication).
+
 ## Recent Changes & Refactoring (2026-02-16)
 
 The project has undergone significant modernization and fixes:
