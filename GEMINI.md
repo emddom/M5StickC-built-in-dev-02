@@ -53,6 +53,10 @@ The project has undergone significant modernization and fixes:
 
 ## Development
 
+### IDE Setup
+-   **VS Code Extension:** This project is configured to use the [PlatformIO IDE](https://platformio.org/platformio-ide) extension.
+-   **Important:** Do not use the standalone Microsoft Arduino extension (`vsciot-vscode.vscode-arduino`), as it is incompatible with the PlatformIO build system used here.
+
 ### Prerequisites
 -   PlatformIO (VS Code extension or CLI)
 
