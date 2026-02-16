@@ -1,0 +1,22 @@
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Other
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.idea/
+cmake-build-*/
+.ipch/
+.clangd/
